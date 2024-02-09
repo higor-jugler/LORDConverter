@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E07C88DF2B76393500417BF1 /* ExchangeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07C88DE2B76393500417BF1 /* ExchangeInfo.swift */; };
 		E0C0D4EC2B74F9F60075C5A0 /* LORDConverterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C0D4EB2B74F9F60075C5A0 /* LORDConverterApp.swift */; };
 		E0C0D4EE2B74F9F60075C5A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C0D4ED2B74F9F60075C5A0 /* ContentView.swift */; };
 		E0C0D4F02B74F9F70075C5A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0C0D4EF2B74F9F70075C5A0 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E07C88DE2B76393500417BF1 /* ExchangeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeInfo.swift; sourceTree = "<group>"; };
 		E0C0D4E82B74F9F60075C5A0 /* LORDConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LORDConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C0D4EB2B74F9F60075C5A0 /* LORDConverterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LORDConverterApp.swift; sourceTree = "<group>"; };
 		E0C0D4ED2B74F9F60075C5A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				E0C0D4EB2B74F9F60075C5A0 /* LORDConverterApp.swift */,
 				E0C0D4ED2B74F9F60075C5A0 /* ContentView.swift */,
+				E07C88DE2B76393500417BF1 /* ExchangeInfo.swift */,
 				E0C0D4EF2B74F9F70075C5A0 /* Assets.xcassets */,
 				E0C0D4F12B74F9F70075C5A0 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E07C88DF2B76393500417BF1 /* ExchangeInfo.swift in Sources */,
 				E0C0D4EE2B74F9F60075C5A0 /* ContentView.swift in Sources */,
 				E0C0D4EC2B74F9F60075C5A0 /* LORDConverterApp.swift in Sources */,
 			);
