@@ -21,10 +21,15 @@ struct SelectCurrency: View {
             
             VStack {
                 // Text
-                Text("Select the currency you are starting with:")
+                Text("Select the currency you are starting with:\(Currency.silverPenny.rawValue) ")
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                 // Currency icon
-                CurrencyIcon(currencyImage: .copperpenny, currencyName: "Copper Penny")
+                LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                    ForEach(0..<5){ _ in
+                        CurrencyIcon(
+                            currencyImage: .copperpenny, currencyName: "Copper Penny")                        
+                    }
+                }
                 
                 // Text
                 Text("Select the currency you would like to convert to:")
@@ -40,7 +45,7 @@ struct SelectCurrency: View {
                 .tint(.brown)
                 .font(.largeTitle)
                 .padding()
-                .foregroundColor(.white) 
+                .foregroundColor(.white)
             }
             .padding()
             .multilineTextAlignment(.center)
