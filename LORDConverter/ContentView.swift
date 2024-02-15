@@ -17,8 +17,8 @@ struct ContentView: View {
     @FocusState var leftType
     @FocusState var rightType
     
-    @State var topCurrency: Currency = .silverPiece
-    @State var bottonCurrency: Currency = .goldPiece
+    @State var leftCurrency: Currency = .silverPiece
+    @State var rightCurrency: Currency = .goldPiece
     
     var body: some View {
         
@@ -46,13 +46,13 @@ struct ContentView: View {
                         
                         HStack {
                             // Left Currency image
-                            Image(topCurrency.image)
+                            Image(leftCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
                             
                             // Currency text
-                            Text(topCurrency.name)
+                            Text(leftCurrency.name)
                                 .font(.headline)
                                 .foregroundColor(.white)
                         }
@@ -65,12 +65,7 @@ struct ContentView: View {
                         TextField("Amount", text: $leftAmount)
                             .textFieldStyle(.roundedBorder)
                             .focused($leftType)
-                            .onChange(of: leftAmount) {
-                                if leftType  {
-                                    rightAmount =
-                                    topCurrency.convert(leftAmount, to: bottonCurrency)
-                                }
-                            }
+                            .keyboardType(.decimalPad)                        
                     }
                     
                     // Equal sign
@@ -83,13 +78,13 @@ struct ContentView: View {
                         // Right currency section
                         HStack {
                             // Currency image
-                            Image(bottonCurrency.image)
+                            Image(rightCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
                             
                             // Currency text
-                            Text(bottonCurrency.name)
+                            Text(rightCurrency.name)
                                 .font(.headline)
                                 .foregroundColor(.white)
                         }
@@ -103,12 +98,7 @@ struct ContentView: View {
                             .textFieldStyle(.roundedBorder)
                             .multilineTextAlignment(.trailing)
                             .focused($rightType)
-                            .onChange(of: rightAmount) {
-                                if rightType  {
-                                    leftAmount =
-                                    bottonCurrency.convert(rightAmount, to: topCurrency)
-                                }
-                            }
+                            .keyboardType(.decimalPad)
                     }
                 }
                 .padding()
@@ -133,11 +123,33 @@ struct ContentView: View {
             }
             //            .border(.blue)
         }
+        .onChange(of: leftAmount) {
+            if leftType  {
+                rightAmount =
+                leftCurrency.convert(leftAmount, to: rightCurrency)
+            }
+        }
+        .onChange(of: rightAmount) {
+            if rightType  {
+                leftAmount =
+                rightCurrency.convert(rightAmount, to: leftCurrency)
+            }
+        }
+        .onChange(of: leftCurrency) {
+            leftAmount =
+            rightCurrency.convert(rightAmount, to: leftCurrency)
+            
+        }
+        .onChange(of: rightCurrency) {
+            rightAmount =
+            leftCurrency.convert(leftAmount, to: rightCurrency)
+            
+        }
         .sheet(isPresented: $showExchangeInfo) {
             ExchangeInfo()
         }
         .sheet(isPresented: $showSelectCurrency) {
-            SelectCurrency(topCurrency: $topCurrency, bottonCurrency: $bottonCurrency)
+            SelectCurrency(topCurrency: $leftCurrency, bottonCurrency: $rightCurrency)
         }
     }
 }
