@@ -9,8 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State var showExchangeInfo = false
+    @State var showSelectCurrency = false
+    
     @State var leftAmount = ""
     @State var rightAmount = ""
+    
+    @FocusState var leftType
+    @FocusState var rightType
+    
+    @State var topCurrency: Currency = .silverPiece
+    @State var bottonCurrency: Currency = .goldPiece
     
     var body: some View {
         
@@ -38,20 +46,31 @@ struct ContentView: View {
                         
                         HStack {
                             // Left Currency image
-                            Image(.silverpiece)
+                            Image(topCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
                             
                             // Currency text
-                            Text("Silver price")
+                            Text(topCurrency.name)
                                 .font(.headline)
                                 .foregroundColor(.white)
+                        }
+                        .padding(.bottom, -5)
+                        .onTapGesture {
+                            showSelectCurrency.toggle()
                         }
                         
                         // Text fild
                         TextField("Amount", text: $leftAmount)
                             .textFieldStyle(.roundedBorder)
+                            .focused($leftType)
+                            .onChange(of: leftAmount) {
+                                if leftType  {
+                                    rightAmount =
+                                    topCurrency.convert(leftAmount, to: bottonCurrency)
+                                }
+                            }
                     }
                     
                     // Equal sign
@@ -64,21 +83,32 @@ struct ContentView: View {
                         // Right currency section
                         HStack {
                             // Currency image
-                            Image(.goldpiece)
+                            Image(bottonCurrency.image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
                             
                             // Currency text
-                            Text("Silver price")
+                            Text(bottonCurrency.name)
                                 .font(.headline)
                                 .foregroundColor(.white)
+                        }
+                        .padding(.bottom, -5)
+                        .onTapGesture {
+                            showSelectCurrency.toggle()
                         }
                         
                         // Text fild
                         TextField("Amount", text: $rightAmount)
                             .textFieldStyle(.roundedBorder)
                             .multilineTextAlignment(.trailing)
+                            .focused($rightType)
+                            .onChange(of: rightAmount) {
+                                if rightType  {
+                                    leftAmount =
+                                    bottonCurrency.convert(rightAmount, to: topCurrency)
+                                }
+                            }
                     }
                 }
                 .padding()
@@ -103,9 +133,12 @@ struct ContentView: View {
             }
             //            .border(.blue)
         }
-        .sheet(isPresented: $showExchangeInfo, content: {
+        .sheet(isPresented: $showExchangeInfo) {
             ExchangeInfo()
-        })
+        }
+        .sheet(isPresented: $showSelectCurrency) {
+            SelectCurrency(topCurrency: $topCurrency, bottonCurrency: $bottonCurrency)
+        }
     }
 }
 
